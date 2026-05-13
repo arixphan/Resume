@@ -13,6 +13,42 @@ function App() {
 
   const [isPrinting, setIsPrinting] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'error' | 'idle'>('idle');
+  const [isAutoSaveEnabled, setIsAutoSaveEnabled] = useState(true);
+
+  // Auto-save effect
+  useEffect(() => {
+    // Don't save if it's the initial load or if auto-save is disabled
+    if (!isAutoSaveEnabled || (markdown === initialCvText && saveStatus === 'idle')) {
+      return;
+    }
+
+    setSaveStatus('saving');
+    const timer = setTimeout(async () => {
+      try {
+        const response = await fetch('http://localhost:3001/save-cv', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ markdown }),
+        });
+
+        if (response.ok) {
+          setSaveStatus('saved');
+          // Reset status to idle after a while
+          setTimeout(() => setSaveStatus(prev => prev === 'saved' ? 'idle' : prev), 2000);
+        } else {
+          setSaveStatus('error');
+        }
+      } catch (error) {
+        console.error('Failed to save:', error);
+        setSaveStatus('error');
+      }
+    }, 1000); // 1 second debounce
+
+    return () => clearTimeout(timer);
+  }, [markdown, isAutoSaveEnabled]);
 
   // Function to handle printing via the backend PDF server
   const handlePrint = async () => {
@@ -72,8 +108,25 @@ function App() {
       {isEditorVisible && (
         <div className="editor-pane">
           <div className="editor-header">
-            <span>Markdown Editor</span>
-            <Code size={18} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>Markdown Editor</span>
+              <Code size={18} />
+            </div>
+            <div className={`save-status ${saveStatus}`}>
+              {saveStatus === 'saving' && 'Saving...'}
+              {saveStatus === 'saved' && 'Changes saved'}
+              {saveStatus === 'error' && 'Error saving!'}
+            </div>
+            <div className="autosave-toggle">
+              <span className="toggle-label">Auto-save</span>
+              <button 
+                className={`toggle-switch ${isAutoSaveEnabled ? 'on' : 'off'}`}
+                onClick={() => setIsAutoSaveEnabled(!isAutoSaveEnabled)}
+                title={isAutoSaveEnabled ? 'Disable auto-save' : 'Enable auto-save'}
+              >
+                <div className="toggle-slider" />
+              </button>
+            </div>
           </div>
           <textarea
             className="editor-textarea"

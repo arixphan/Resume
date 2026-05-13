@@ -1,6 +1,8 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 
@@ -92,6 +94,24 @@ app.post('/generate-pdf', async (req, res) => {
   } catch (error) {
     console.error('Error generating PDF:', error);
     res.status(500).send('Error generating PDF');
+  }
+});
+
+app.post('/save-cv', async (req, res) => {
+  const { markdown } = req.body;
+
+  if (markdown === undefined) {
+    return res.status(400).send('Missing markdown content');
+  }
+
+  try {
+    const filePath = path.join(__dirname, '..', 'CV.md');
+    fs.writeFileSync(filePath, markdown, 'utf8');
+    console.log('CV.md updated successfully.');
+    res.status(200).send('File updated successfully');
+  } catch (error) {
+    console.error('Error saving CV.md:', error);
+    res.status(500).send('Error saving file');
   }
 });
 
