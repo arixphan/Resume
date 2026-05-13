@@ -102,6 +102,16 @@ function App() {
     }
   };
 
+  // Add class to body to disable background animation when modal is open
+  useEffect(() => {
+    if (pdfUrl) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => document.body.classList.remove('modal-open');
+  }, [pdfUrl]);
+
   return (
     <div className="app-container">
       {/* Editor Pane */}

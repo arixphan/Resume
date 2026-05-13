@@ -11,6 +11,24 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+let browser;
+
+async function getBrowser() {
+  if (!browser) {
+    console.log('Launching browser instance...');
+    browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    
+    // Handle browser disconnection
+    browser.on('disconnected', () => {
+      browser = null;
+    });
+  }
+  return browser;
+}
+
 app.post('/generate-pdf', async (req, res) => {
   const { html, css } = req.body;
 
@@ -48,17 +66,11 @@ app.post('/generate-pdf', async (req, res) => {
   `;
 
   try {
-    console.log('Launching Puppeteer...');
-    // Launch headless browser
-    const browser = await puppeteer.launch({ 
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    const browserInstance = await getBrowser();
+    const page = await browserInstance.newPage();
     
-    const page = await browser.newPage();
-    
-    // Set content and wait for network to be idle (so fonts load if any)
-    await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
+    // Set content and wait for basic load (much faster than networkidle0 if no external assets)
+    await page.setContent(fullHtml, { waitUntil: 'load' });
 
     console.log('Generating PDF...');
     const pdfBuffer = await page.pdf({
@@ -81,8 +93,8 @@ app.post('/generate-pdf', async (req, res) => {
         </div>
       `,
     });
-
-    await browser.close();
+    
+    await page.close();
     console.log('PDF generated successfully.');
 
     // Send back the PDF
