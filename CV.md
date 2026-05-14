@@ -43,6 +43,7 @@ A module within the A12 AI Low-Code platform combines model-driven software engi
 **Team Size:** 1 Project Manager, 5 developers
 
 **Responsibility:**
+
 - Work directly with European colleagues to develop the module.
 - Analyzed requirements and user needs to provide technical solutions
 - Communicate and provide technical support for consumers of the module
@@ -61,6 +62,7 @@ An internal system used by 1000+ lawers to manage their daily work, bookings, ca
 **Team Size:** 1 product owner, 1 product manager, 2 QA, 1 DevOps, 7 developers
 
 **Responsibility:**
+
 - Collaborate with vietnamese team and german team to develop the system
 - Analyze requirement and plan to implement, handle issues with low-code
 - Developed Calendar UI with TimeGrid to display and manage daily tasks and bookings for lawyers
@@ -75,6 +77,7 @@ An internal system used by 1000+ lawers to manage their daily work, bookings, ca
 An job seeking platform for developer to find jobs in Japan base on project and company information
 
 **Responsibility:**
+
 - Using AI tools such as Devin, cursor to develop user page, company page and laravel for backend
 - Migrate user page from Vue to NextJs and optimize SEO for user page
 - Implement batches in python to handle system process such as crawl project image, job status change, generate sitemap
@@ -95,6 +98,7 @@ _Fullstack Developer_
 A system managing procedures and resources of Xymax corporation
 
 **Responsibility:**
+
 - Created detailed designs from basic designs and figma design
 - Developed responsive UI components using Next.js.
 - Implemented RESTful API with SpringBoot
@@ -109,6 +113,7 @@ A system managing procedures and resources of Xymax corporation
 A comprehensive ERP system for a software company, focusing on accounting and human resource management.
 
 **Responsibility** :
+
 - Developed SuiteScript RESTlet in NetSuite for seamless ERP integration.
 - Designed and implemented new UI components based on mockups.
 - Receive tasks from the Japanese team through the IT communicator and assign them to other members
@@ -124,6 +129,7 @@ workflows.
 A system that manages estimates and makes price quotations, also receives orders and manages the delivery and storage of products
 
 **Responsibility:**
+
 - Collaborated with customer and the backend to implement UIs.
 - Implemented a datasheet that allows drag-and-drop
 - Created automation testing for UI by jest and enzyme.
@@ -139,6 +145,7 @@ _Fullstack Developer_
 A wifi marketing system that allow manage wifi modern. allow user config wifi portal page and use wifi free or login to use wifi, setting marketing campaign to push ads to user.
 
 **Responsibility:**
+
 - Research UI framework to apply for the company's project
 - Handle query milions records for from elasticsearch and implemented data analysis and dashboard with visualization.
 - Implemented marketing campaign system to push ads to user and freely customize content, layout for portal page by dragging and dropping components.

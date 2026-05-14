@@ -305,8 +305,8 @@ body.modal-open {
 }
 
 .cv-list {
-  padding-left: 0;
-  list-style: none;
+  padding-left: 1.2rem;
+  list-style: disc;
   margin-top: 0.25rem;
   margin-bottom: 0.75rem;
 }
