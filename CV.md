@@ -133,6 +133,7 @@ A system that manages estimates and makes price quotations, also receives orders
 - Collaborated with customer and the backend to implement UIs.
 - Implemented a datasheet that allows drag-and-drop
 - Created automation testing for UI by jest and enzyme.
+
 **Tech stacks:** ReactJs, TypeScript, React Formik, Yup, Bootstrap, docker
 
 ---

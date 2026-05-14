@@ -129,7 +129,7 @@ function App() {
             </div>
             <div className="autosave-toggle">
               <span className="toggle-label">Auto-save</span>
-              <button 
+              <button
                 className={`toggle-switch ${isAutoSaveEnabled ? 'on' : 'off'}`}
                 onClick={() => setIsAutoSaveEnabled(!isAutoSaveEnabled)}
                 title={isAutoSaveEnabled ? 'Disable auto-save' : 'Enable auto-save'}
@@ -166,10 +166,10 @@ function App() {
                   if (parts.length > 1) {
                     return (
                       <h3 className="cv-job-title" {...props}>
-                        <span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                          <span>{parts[0]}</span>
-                          <span style={{ fontSize: '0.9rem', color: '#718096', fontWeight: 400 }}>{parts.slice(1).join('')}</span>
-                        </span>
+                        <div className="cv-job-header-row">
+                          <span className="cv-company-name">{parts[0].trim()}</span>
+                          <span className="cv-job-date">{parts.slice(1).join('').trim()}</span>
+                        </div>
                       </h3>
                     );
                   }
